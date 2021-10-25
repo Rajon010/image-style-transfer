@@ -1,4 +1,6 @@
-# Exploring Maximum-Mean-Discrepancy-Based Descriptive Neural Image Style Transfer Using PyTorch
+# Image Style Transfer 
+
+Exploring maximum-mean-discrepancy-based descriptive neural image style rransfer using PyTorch
 
 ## How to run
 
