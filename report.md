@@ -43,8 +43,8 @@ Gatys kindly provides his implementation of [1.1] on [9]. **All the extensions b
 
 In this part, we simply run Gatys' code to generate style-transferred images. It can be observed that there is "ghosting" in some results, as stated in [8].
 
-<img src="Results/beethoven_starry_night_gramian_0.0.jpg" height="200"> <img src="Results/church_starry_night_gramian_0.0.jpg" height="200"> <img src="Results/fate_starry_night_gramian_0.0.jpg" height="200">
-<img src="Results/beethoven_face_gramian_0.0.jpg" height="200"> <img src="Results/church_face_gramian_0.0.jpg" height="200"> <img src="Results/fate_face_gramian_0.0.jpg" height="200">
+<img src="Results/beethoven_starry_night_gramian_0.0.jpg" height="200"> <img src="Results/church_starry_night_gramian_0.0.jpg" height="200"> <img src="Results/fate_starry_night_gramian_0.0.jpg" height="200">  
+<img src="Results/beethoven_face_gramian_0.0.jpg" height="200"> <img src="Results/church_face_gramian_0.0.jpg" height="200"> <img src="Results/fate_face_gramian_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_gramian_0.0.jpg" height="200"> <img src="Results/church_ice_gramian_0.0.jpg" height="200"> <img src="Results/fate_ice_gramian_0.0.jpg" height="200">
 
 ## Part 1: Remove ghosting using activation shift
@@ -119,8 +119,8 @@ In this part we show that the style loss using mean vectors does capture some as
 
 ### Mean vector
 
-<img src="Results/beethoven_starry_night_mean_0.0.jpg" height="200"> <img src="Results/church_starry_night_mean_0.0.jpg" height="200"> <img src="Results/fate_starry_night_mean_0.0.jpg" height="200">
-<img src="Results/beethoven_face_mean_0.0.jpg" height="200"> <img src="Results/church_face_mean_0.0.jpg" height="200"> <img src="Results/fate_face_mean_0.0.jpg" height="200">
+<img src="Results/beethoven_starry_night_mean_0.0.jpg" height="200"> <img src="Results/church_starry_night_mean_0.0.jpg" height="200"> <img src="Results/fate_starry_night_mean_0.0.jpg" height="200">  
+<img src="Results/beethoven_face_mean_0.0.jpg" height="200"> <img src="Results/church_face_mean_0.0.jpg" height="200"> <img src="Results/fate_face_mean_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_mean_0.0.jpg" height="200"> <img src="Results/church_ice_mean_0.0.jpg" height="200"> <img src="Results/fate_ice_mean_0.0.jpg" height="200">
 
 ## Part 4: Link between activation shift and MMD
@@ -141,13 +141,13 @@ L<sub>s</sub> = &Sigma;<sub>l</sub><sup></sup> <sup>b<sup>l</sup></sup>&frasl;<s
 We now examine their performance. It can be observed that the **style loss using covariance matrices creates great results without ghosting** while thie one using variance vectors results in ghosting easily. It can also be seen that **some styles are easy to transfer well (introducing less ghosting) while some are not**. For example, Vincent van Gogh's "the starry night" is an relatively easier one.
 
 ### Variance vector
-<img src="Results/beethoven_starry_night_variance_0.0.jpg" height="200"> <img src="Results/church_starry_night_variance_0.0.jpg" height="200"> <img src="Results/fate_starry_night_variance_0.0.jpg" height="200">
-<img src="Results/beethoven_face_variance_0.0.jpg" height="200"> <img src="Results/church_face_variance_0.0.jpg" height="200"> <img src="Results/fate_face_variance_0.0.jpg" height="200">
+<img src="Results/beethoven_starry_night_variance_0.0.jpg" height="200"> <img src="Results/church_starry_night_variance_0.0.jpg" height="200"> <img src="Results/fate_starry_night_variance_0.0.jpg" height="200">  
+<img src="Results/beethoven_face_variance_0.0.jpg" height="200"> <img src="Results/church_face_variance_0.0.jpg" height="200"> <img src="Results/fate_face_variance_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_variance_0.0.jpg" height="200"> <img src="Results/church_ice_variance_0.0.jpg" height="200"> <img src="Results/fate_ice_variance_0.0.jpg" height="200">
 
 ### Covariance matrix
-<img src="Results/beethoven_starry_night_covariance_0.0.jpg" height="200"> <img src="Results/church_starry_night_covariance_0.0.jpg" height="200"> <img src="Results/fate_starry_night_covariance_0.0.jpg" height="200">
-<img src="Results/beethoven_face_covariance_0.0.jpg" height="200"> <img src="Results/church_face_covariance_0.0.jpg" height="200"> <img src="Results/fate_face_covariance_0.0.jpg" height="200">
+<img src="Results/beethoven_starry_night_covariance_0.0.jpg" height="200"> <img src="Results/church_starry_night_covariance_0.0.jpg" height="200"> <img src="Results/fate_starry_night_covariance_0.0.jpg" height="200">  
+<img src="Results/beethoven_face_covariance_0.0.jpg" height="200"> <img src="Results/church_face_covariance_0.0.jpg" height="200"> <img src="Results/fate_face_covariance_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_covariance_0.0.jpg" height="200"> <img src="Results/church_ice_covariance_0.0.jpg" height="200"> <img src="Results/fate_ice_covariance_0.0.jpg" height="200">
 
 ### Remarks
