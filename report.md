@@ -31,23 +31,23 @@ The content loss takes care of "where" a feature appears in a feature map. On th
 In this project we use 3 content images and 3 style images as inputs and get 3 &times; 3 = 9 output images in each experiment.
 
 ### Content images ([C.1][C.2][C.3])
-<!---
+
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/1200px-Beethoven.jpg" height="200"> <img src="http://www.newlooktravel.tn/photo/3-80-NewLookTravel_Paris_Cathedrale-Notre-Dame-nuit.jpg" height="200"> <img src="Images/fate.jpg" height="200">
---->
+
 ### Style images ([S.1][S.2][S.3])
-<!---
+
 <img src="https://raw.githubusercontent.com/leongatys/PytorchNeuralStyleTransfer/master/Images/vangogh_starry_night.jpg" height="200"> <img src="https://www.allofthisisforyou.com/images/2012-fawkes-randal-roberts_580.jpg" height="200"> <img src="http://eskipaper.com/images/ice-5.jpg" height="200">
---->
+
 ## Part 0: Reproduce Gatys et al.'s results
 
 Gatys kindly provides his implementation of [1.1] on [9]. **All the extensions below are built upon Gatys' code.**
 
 In this part, we simply run Gatys' code to generate style-transferred images. It can be observed that there is "ghosting" in some results, as stated in [8].
-<!---
+
 <img src="Results/beethoven_starry_night_gramian_0.0.jpg" height="200"> <img src="Results/church_starry_night_gramian_0.0.jpg" height="200"> <img src="Results/fate_starry_night_gramian_0.0.jpg" height="200">  
 <img src="Results/beethoven_face_gramian_0.0.jpg" height="200"> <img src="Results/church_face_gramian_0.0.jpg" height="200"> <img src="Results/fate_face_gramian_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_gramian_0.0.jpg" height="200"> <img src="Results/church_ice_gramian_0.0.jpg" height="200"> <img src="Results/fate_ice_gramian_0.0.jpg" height="200">
---->
+
 ## Part 1: Remove ghosting using activation shift
 
 Risser et al. argue that ghosting occurs because there are multiple sets of pixel values that can produce alike feature maps when passed through CNN, and some of the sets looks like ghosting ([8]). Novak et al. also give a related argument in [3], section 3.3 and suggest that using "activation shift" can reduce the ambiguity of candidate sets of pixel values. Their modification is that: instead of letting  
@@ -59,7 +59,7 @@ s is a user-specified scalar and U the all one matrix (with size varying to meet
 The explanation of this modification is provided in [3], which we are not going to restate here. Here we simply implement it and examine its performance with s varying. It can be ovserved that the ghosting disappears when |s| increases. **Activation shift removes ghosting.**
 
 ### Gramian matrix with activation shift. Value of s from top to bottom: -600, -500, -400, -300, -200, -100, 0, 100, 200, 300, 400, 500, 600.
-<!---
+
 <img src="Results/beethoven_starry_night_gramian_-600.0.jpg" height="70"> <img src="Results/church_starry_night_gramian_-600.0.jpg" height="70"> <img src="Results/fate_starry_night_gramian_-600.0.jpg" height="70"> <img src="Results/beethoven_face_gramian_-600.0.jpg" height="70"> <img src="Results/church_face_gramian_-600.0.jpg" height="70"> <img src="Results/fate_face_gramian_-600.0.jpg" height="70"> <img src="Results/beethoven_ice_gramian_-600.0.jpg" height="70"> <img src="Results/church_ice_gramian_-600.0.jpg" height="70"> <img src="Results/fate_ice_gramian_-600.0.jpg" height="70">  
 <img src="Results/beethoven_starry_night_gramian_-500.0.jpg" height="70"> <img src="Results/church_starry_night_gramian_-500.0.jpg" height="70"> <img src="Results/fate_starry_night_gramian_-500.0.jpg" height="70"> <img src="Results/beethoven_face_gramian_-500.0.jpg" height="70"> <img src="Results/church_face_gramian_-500.0.jpg" height="70"> <img src="Results/fate_face_gramian_-500.0.jpg" height="70"> <img src="Results/beethoven_ice_gramian_-500.0.jpg" height="70"> <img src="Results/church_ice_gramian_-500.0.jpg" height="70"> <img src="Results/fate_ice_gramian_-500.0.jpg" height="70">  
 <img src="Results/beethoven_starry_night_gramian_-400.0.jpg" height="70"> <img src="Results/church_starry_night_gramian_-400.0.jpg" height="70"> <img src="Results/fate_starry_night_gramian_-400.0.jpg" height="70"> <img src="Results/beethoven_face_gramian_-400.0.jpg" height="70"> <img src="Results/church_face_gramian_-400.0.jpg" height="70"> <img src="Results/fate_face_gramian_-400.0.jpg" height="70"> <img src="Results/beethoven_ice_gramian_-400.0.jpg" height="70"> <img src="Results/church_ice_gramian_-400.0.jpg" height="70"> <img src="Results/fate_ice_gramian_-400.0.jpg" height="70">  
@@ -74,7 +74,7 @@ The explanation of this modification is provided in [3], which we are not going 
 <img src="Results/beethoven_starry_night_gramian_500.0.jpg" height="70"> <img src="Results/church_starry_night_gramian_500.0.jpg" height="70"> <img src="Results/fate_starry_night_gramian_500.0.jpg" height="70"> <img src="Results/beethoven_face_gramian_500.0.jpg" height="70"> <img src="Results/church_face_gramian_500.0.jpg" height="70"> <img src="Results/fate_face_gramian_500.0.jpg" height="70"> <img src="Results/beethoven_ice_gramian_500.0.jpg" height="70"> <img src="Results/church_ice_gramian_500.0.jpg" height="70"> <img src="Results/fate_ice_gramian_500.0.jpg" height="70">  
 <img src="Results/beethoven_starry_night_gramian_600.0.jpg" height="70"> <img src="Results/church_starry_night_gramian_600.0.jpg" height="70"> <img src="Results/fate_starry_night_gramian_600.0.jpg" height="70"> <img src="Results/beethoven_face_gramian_600.0.jpg" height="70"> <img src="Results/church_face_gramian_600.0.jpg" height="70"> <img src="Results/fate_face_gramian_600.0.jpg" height="70"> <img src="Results/beethoven_ice_gramian_600.0.jpg" height="70"> <img src="Results/church_ice_gramian_600.0.jpg" height="70"> <img 
 src="Results/fate_ice_gramian_600.0.jpg" height="70">
---->
+
 ## Part 2: On theoretical part of [4]
 
 Li et al. and Risser et al. regard each column S.<sub>k</sub> of S and F.<sub>k</sub> of F as generated from "style" probability distributions D<sub>s</sub> and D<sub>o</sub>, respectively ([4][8]). Minimizing the Gramian-matrix-based style loss L<sub>s</sub> is a way to match D<sub>o</sub> to D<sub>s</sub>.
@@ -119,11 +119,11 @@ This is much more easier to compute than what equation (2) suggests. We call thi
 In this part we show that the style loss using mean vectors does capture some aspects of the style. 
 
 ### Mean vector
-<!---
+
 <img src="Results/beethoven_starry_night_mean_0.0.jpg" height="200"> <img src="Results/church_starry_night_mean_0.0.jpg" height="200"> <img src="Results/fate_starry_night_mean_0.0.jpg" height="200">  
 <img src="Results/beethoven_face_mean_0.0.jpg" height="200"> <img src="Results/church_face_mean_0.0.jpg" height="200"> <img src="Results/fate_face_mean_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_mean_0.0.jpg" height="200"> <img src="Results/church_ice_mean_0.0.jpg" height="200"> <img src="Results/fate_ice_mean_0.0.jpg" height="200">
---->
+
 ## Part 4: Connection between activation shift and MMD
 
 By substituting each variable z in equation (2) for (z + sU), we have  
@@ -142,17 +142,17 @@ In part 2, we mention that minimizing the Gramian-matrix-based style loss is a w
 We now examine their performance. It can be observed that the **style loss using covariance matrices creates great results without ghosting** while thie one using variance vectors results in ghosting easily. It can also be seen that **some styles are easy to transfer well (introducing less ghosting) while some are not**. For example, Vincent van Gogh's "the starry night" is an relatively easier one.
 
 ### Variance vector
-<!---
+
 <img src="Results/beethoven_starry_night_variance_0.0.jpg" height="200"> <img src="Results/church_starry_night_variance_0.0.jpg" height="200"> <img src="Results/fate_starry_night_variance_0.0.jpg" height="200">  
 <img src="Results/beethoven_face_variance_0.0.jpg" height="200"> <img src="Results/church_face_variance_0.0.jpg" height="200"> <img src="Results/fate_face_variance_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_variance_0.0.jpg" height="200"> <img src="Results/church_ice_variance_0.0.jpg" height="200"> <img src="Results/fate_ice_variance_0.0.jpg" height="200">
---->
+
 ### Covariance matrix
-<!---
+
 <img src="Results/beethoven_starry_night_covariance_0.0.jpg" height="200"> <img src="Results/church_starry_night_covariance_0.0.jpg" height="200"> <img src="Results/fate_starry_night_covariance_0.0.jpg" height="200">  
 <img src="Results/beethoven_face_covariance_0.0.jpg" height="200"> <img src="Results/church_face_covariance_0.0.jpg" height="200"> <img src="Results/fate_face_covariance_0.0.jpg" height="200">  
 <img src="Results/beethoven_ice_covariance_0.0.jpg" height="200"> <img src="Results/church_ice_covariance_0.0.jpg" height="200"> <img src="Results/fate_ice_covariance_0.0.jpg" height="200">
---->
+
 ### Remarks
 
 1. We can also add activation shifts to mean vectors, variance vectors, and covariance matrices. But if we write down the mathematical formula of style losses and do some calculation, we will find that the activation shifts cancel out eventually. Thus activation shifts make sense only for Gramian matrices.  
