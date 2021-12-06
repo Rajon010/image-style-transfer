@@ -128,7 +128,7 @@ In this part we show that the style loss using mean vectors does capture some as
 
 By substituting each variable z in equation (2) for (z + sU), we have  
 <img src="https://render.githubusercontent.com/render/math?math=\displaystyle {\textbf {\color{DarkGreen}  \frac{1}{n^{p}} \sum_{i_{1}=1}^{n} \sum_{i_{2}=1}^{n} ... \sum_{i_{p}=1}^{n} ((\frac{1}{m_{o}} \sum_{k=1}^{m_{o}} \prod_{q=1}^{p} (F_{i_{q}k} + sU)) - (\frac{1}{m_{s}} \sum_{k=1}^{m_{s}} \prod_{q=1}^{p} (S_{i_{q}k} + sU)))^{2} }}">  
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle {\textbf {\color{DarkGreen}  (\frac{1}{m_{o}^{2}} \sum_{k_{1}=1}^{m_{o}} \sum_{k_{2}=1}^{m_{o}} K(F._{k_{1}} + sU, F._{k_{2}} + sU, p)) + (\frac{1}{m_{s}^{2}} \sum_{k_{1}=1}^{m_{s}} \sum_{k_{2}=1}^{m_{s}} K(S._{k_{1}} + sU, S._{k_{2}} + sU, p)) - (\frac{2}{m_{o}m_{s}} \sum_{k_{1}=1}^{m_{o}} \sum_{k_{2}=1}^{m_{s}} K(F._{k_{1}} + sU, S._{k_{2}} + sU, p)) }}"> -------- (4).
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle {\textbf {\color{DarkGreen}  = (\frac{1}{m_{o}^{2}} \sum_{k_{1}=1}^{m_{o}} \sum_{k_{2}=1}^{m_{o}} K(F._{k_{1}} + sU, F._{k_{2}} + sU, p)) + (\frac{1}{m_{s}^{2}} \sum_{k_{1}=1}^{m_{s}} \sum_{k_{2}=1}^{m_{s}} K(S._{k_{1}} + sU, S._{k_{2}} + sU, p)) - (\frac{2}{m_{o}m_{s}} \sum_{k_{1}=1}^{m_{o}} \sum_{k_{2}=1}^{m_{s}} K(F._{k_{1}} + sU, S._{k_{2}} + sU, p)) }}"> -------- (4).
 
 Letting p = 2, we find that the LHS is the style loss using Gramian matrices with activation shift s, and the RHS is MMD with "shifted" quadratic kernel. Thus we can reinterpret the conclusion in part 1: **style loss using MMD with shifted quadratic kernel removes ghosting.**
 
