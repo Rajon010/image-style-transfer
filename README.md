@@ -10,7 +10,7 @@ Exploring maximum-mean-discrepancy-based descriptive neural image style transfer
 
 ## Summary
 
-This project investigate the basic form of the neural image style transfer technique proposed by Gatys et al. ([1.1]). First, we reproduce the result of [1.1], which uses Gramian matrix to capture the concept of style. Next, we substitute mean vector, variance vector, and covariance matrix for Gramian matrix, and find that these new components capture different aspects of style and some of them even improve the quality of style transfer. Finally, we implement the idea "activation shift" in [3], which is another technique to improve the quality of style transfer.  
+This project studies the basic form of the neural image style transfer technique proposed by Gatys et al. ([1.1]). First, we reproduce the result of [1.1], which uses Gramian matrix to capture the concept of style. Next, we substitute mean vector, variance vector, and covariance matrix for Gramian matrix, and find that these new components capture different aspects of style and some of them even improve the quality of style transfer. Finally, we implement the idea "activation shift" in [3], which is another technique to improve the quality of style transfer.  
 For details, refer to the [report](report.md).
 
 ## References
