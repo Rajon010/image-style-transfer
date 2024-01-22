@@ -2,6 +2,8 @@
 
 Exploring maximum-mean-discrepancy-based descriptive neural image style transfer using PyTorch.
 
+Many years have passed since this project was done in 2018. This project is now lack of maintenance. Links to the model and some of the images are broken. One in need of the model may find this [issue](https://github.com/leongatys/PytorchNeuralStyleTransfer/issues/15) useful.
+
 ## How to run
 
 `./download_models.sh` provided by [9].  
