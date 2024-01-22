@@ -1,4 +1,4 @@
-# Image Style Transfer Report
+# Neural Image Style Transfer Report
 
 ## Abstract
 
