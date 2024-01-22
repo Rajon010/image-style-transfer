@@ -1,4 +1,4 @@
-# Image Style Transfer 
+# Neural Image Style Transfer 
 
 Exploring maximum-mean-discrepancy-based descriptive neural image style transfer using PyTorch.
 
