@@ -1,4 +1,4 @@
-# built upon https://github.com/leongatys/PytorchNeuralStyleTransfer
+# Built upon https://github.com/leongatys/PytorchNeuralStyleTransfer
 
 import torch
 from torch.autograd import Variable
@@ -10,7 +10,7 @@ from torchvision import transforms
 from PIL import Image
 from itertools import product
 
-image_dir = 'Images/'
+img_dir = 'Images/'
 model_dir = 'Models/'
 
 class VGG(nn.Module):
@@ -80,65 +80,65 @@ class MeanVector(nn.Module):
 	def __init__(self):
 		super(MeanVector, self).__init__()
 	def forward(self, source):
-		one, nFilter, h, w = source.size()
+		one, n_filter, h, w = source.size()
 		m = h * w
-		F = source.view(nFilter, m)
+		F = source.view(n_filter, m)
 		G = torch.mean(F, 1)
 		return G
 
 class GramianMatrix(nn.Module):
-	def __init__(self, activationShift):
+	def __init__(self, activation_shift):
 		super(GramianMatrix, self).__init__()
-		self.activationShift = activationShift
+		self.activation_shift = activation_shift
 	def forward(self, source):
-		one, nFilter, h, w = source.size()
+		one, n_filter, h, w = source.size()
 		m = h * w
-		F = source.view(nFilter, m) + self.activationShift
+		F = source.view(n_filter, m) + self.activation_shift
 		G = torch.mm(F, F.transpose(0, 1))
-		G.div_(nFilter * m)
+		G.div_(n_filter * m)
 		return G
 
 class VarianceVector(nn.Module):
 	def __init__(self):
 		super(VarianceVector, self).__init__()
 	def forward(self, source):
-		one, nFilter, h, w = source.size()
+		one, n_filter, h, w = source.size()
 		m = h * w
-		F = source.view(nFilter, m)
+		F = source.view(n_filter, m)
 		G = torch.var(F, dim=1)
-		G.div_(nFilter)
+		G.div_(n_filter)
 		return G
 
 class CovarianceMatrix(nn.Module):
 	def __init__(self):
 		super(CovarianceMatrix, self).__init__()
 	def forward(self, source):
-		one, nFilter, h, w = source.size()
+		one, n_filter, h, w = source.size()
 		m = h * w
-		F = source.view(nFilter, m)
+		F = source.view(n_filter, m)
 		A = torch.mean(F, dim=1).view(-1, 1)
 		G = torch.mm(F, F.transpose(0, 1)).div(m) - torch.mm(A, A.transpose(0, 1))
-		G.div_(nFilter)
+		G.div_(n_filter)
 		return G
 
 class LayerLoss(nn.Module):
-	def __init__(self, description, rawTarget, activationShift=0.0):
+	def __init__(self, description, raw_target, activation_shift=0.0):
 		super(LayerLoss, self).__init__()
 		if description == 'raw':
-			self.class_, self.argTpl = Identity, tuple()
+			self.class_, self.arg_tpl = Identity, tuple()
 		if description == 'mean':
-			self.class_, self.argTpl = MeanVector, tuple()
+			self.class_, self.arg_tpl = MeanVector, tuple()
 		elif description == 'gramian':
-			self.class_, self.argTpl = GramianMatrix, (activationShift,)
+			self.class_, self.arg_tpl = GramianMatrix, (activation_shift,)
 		elif description == 'variance':
-			self.class_, self.argTpl = VarianceVector, tuple()
+			self.class_, self.arg_tpl = VarianceVector, tuple()
 		elif description == 'covariance':
-			self.class_, self.argTpl = CovarianceMatrix, tuple()
-		self.target = self.class_(*self.argTpl)(rawTarget).detach()
+			self.class_, self.arg_tpl = CovarianceMatrix, tuple()
+		self.target = self.class_(*self.arg_tpl)(raw_target).detach()
 
 	def forward(self, source):
 		out = nn.MSELoss()(
-			self.class_(*self.argTpl)(source), 
+			self.class_(*self.arg_tpl)(source), 
 			self.target,
 		)
 		return out
@@ -176,41 +176,41 @@ style_weights = [1e3] * len(style_layers)
 content_weights = [1e0]
 weights = style_weights + content_weights
 
-contentImageNameList = ['beethoven', 'church', 'fate']
-styleImageNameList = ['starry_night', 'face', 'ice']
-styleDescriptionList = ['mean', 'gramian', 'variance', 'covariance']
-styleDescription2_activationShiftList_dict = {
+content_img_name_list = ['beethoven', 'church', 'fate']
+style_img_name_list = ['starry_night', 'face', 'ice']
+style_description_list = ['mean', 'gramian', 'variance', 'covariance']
+style_description_2_activation_shift_list = {
 	'mean': [0.0], 
 	'gramian': [float(i) for i in range(-600, 700, 100)], 
 	'variance': [0.0], 
 	'covariance': [0.0],
 }
 
-for contentImageName, styleImageName, styleDescription in product(contentImageNameList, styleImageNameList, styleDescriptionList):
-	for activationShift in styleDescription2_activationShiftList_dict[styleDescription]:
-		print(contentImageName, styleImageName, styleDescription, activationShift)
+for content_img_name, style_img_name, style_description in product(content_img_name_list, style_img_name_list, style_description_list):
+	for activation_shift in style_description_2_activation_shift_list[style_description]:
+		print(content_img_name, style_img_name, style_description, activation_shift)
 
-		img_dirs = [image_dir, image_dir]
-		img_names = [styleImageName, contentImageName]
+		img_dirs = [img_dir, img_dir]
+		img_names = [style_img_name, content_img_name]
 		imgs = [Image.open(img_dirs[i] + name + '.jpg').convert('RGB') for i, name in enumerate(img_names)]
 		imgs_torch = [prep(img) for img in imgs]
 		if torch.cuda.is_available():
 			imgs_torch = [Variable(img.unsqueeze(0).cuda()) for img in imgs_torch]
 		else:
 			imgs_torch = [Variable(img.unsqueeze(0)) for img in imgs_torch]
-		style_image, content_image = imgs_torch
+		style_img, content_img = imgs_torch
 
-		style_targets = [A.detach() for A in vgg(style_image, style_layers)]
-		content_targets = [A.detach() for A in vgg(content_image, content_layers)]
+		style_targets = [A.detach() for A in vgg(style_img, style_layers)]
+		content_targets = [A.detach() for A in vgg(content_img, content_layers)]
 
-		opt_img = Variable(content_image.data.clone(), requires_grad=True)
+		opt_img = Variable(content_img.data.clone(), requires_grad=True)
 
-		contentDesctiprion = 'raw'
+		content_desctiprion = 'raw'
 		loss_fns = [
-			LayerLoss(styleDescription, rawTarget, activationShift) 
-		for rawTarget in style_targets] + [
-			LayerLoss(contentDesctiprion, rawTarget) 
-		for rawTarget in content_targets]
+			LayerLoss(style_description, raw_target, activation_shift) 
+		for raw_target in style_targets] + [
+			LayerLoss(content_desctiprion, raw_target) 
+		for raw_target in content_targets]
 		if torch.cuda.is_available():
 			loss_fns = [loss_fn.cuda() for loss_fn in loss_fns]
 
@@ -237,4 +237,4 @@ for contentImageName, styleImageName, styleDescription in product(contentImageNa
 			optimizer.step(closure)
 			
 		out_img = postp(opt_img.data[0].cpu().squeeze())
-		out_img.save(contentImageName + '_' + styleImageName + '_' + styleDescription + '_' + str(activationShift) + '.jpg')
+		out_img.save(content_img_name + '_' + style_img_name + '_' + style_description + '_' + str(activation_shift) + '.jpg')
